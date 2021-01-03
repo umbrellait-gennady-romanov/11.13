@@ -6,9 +6,13 @@ public class Bank
     private HashMap<String, Account> accounts = new HashMap<>();
     private final Random random = new Random();
 
-    public synchronized boolean isFraud(String fromAccountNum, String toAccountNum, long amount) throws InterruptedException
+    public synchronized boolean isFraud(String fromAccountNum, String toAccountNum, long amount)
     {
-        Thread.sleep(1000);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            System.out.println("interrupt ex" + e.getMessage());
+        }
         return random.nextBoolean();
     }
 
@@ -19,7 +23,7 @@ public class Bank
      * метод isFraud. Если возвращается true, то делается блокировка
      * счетов (как – на ваше усмотрение)
      */
-    public synchronized void transfer(String fromAccountNum, String toAccountNum, long amount) throws InterruptedException{
+    public synchronized void transfer(String fromAccountNum, String toAccountNum, long amount) {
         if (!accounts.containsKey(fromAccountNum)) {
             System.out.println(fromAccountNum + " - счёта не существует.");
             return;

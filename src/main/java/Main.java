@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.function.Supplier;
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
         Bank bank = new Bank();
 
@@ -16,22 +16,11 @@ public class Main {
         for (int t = 1; t <= 10; t++) {
             threads.add(new Thread(() -> {
                 for (int i = 1; i <= 10; i++) {
-                    try {
-                        bank.transfer(random50.get(), random50.get(), random52632.get());
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    bank.transfer(random50.get(), random50.get(), random52632.get());
                 }
             }));
         }
         threads.forEach(t->t.start());
-        threads.forEach(t-> {
-            try {
-                t.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
 
         for (int i =1; i <= 50; i++) {
             System.out.println(bank.getBalance(Integer.toString(i)));
